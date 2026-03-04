@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Akram Yacoub — Handyman Services</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --black: #0d0d0d;
+    --white: #f5f1eb;
+    --orange: #e8500a;
+    --orange-light: #ff6b2b;
+    --gray: #888;
+    --card-bg: #141414;
+    --border: rgba(255,255,255,0.08);
+  }
+
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top:0; left:0; right:0; z-index:100;
+    display: flex; align-items:center; justify-content:space-between;
+    padding: 1.2rem 4rem;
+    background: rgba(13,13,13,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 0.05em;
+    color: var(--white);
+  }
+  .nav-logo span { color: var(--orange); }
+  .nav-links { display:flex; gap:2.5rem; list-style:none; }
+  .nav-links a {
+    color: var(--gray); text-decoration:none; font-size:0.9rem; font-weight:500;
+    letter-spacing:0.05em; text-transform:uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--white); }
+  .nav-cta {
+    background: var(--orange); color: #fff;
+    padding: 0.6rem 1.4rem; border-radius: 4px;
+    font-size:0.85rem; font-weight:700; letter-spacing:0.08em;
+    text-transform:uppercase; text-decoration:none;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .nav-cta:hover { background: var(--orange-light); transform: translateY(-1px); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 8rem 4rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content:'';
+    position:absolute; top:-200px; right:-100px;
+    width:700px; height:700px;
+    background: radial-gradient(circle, rgba(232,80,10,0.18) 0%, transparent 70%);
+    pointer-events:none;
+  }
+  .hero-badge {
+    display:inline-flex; align-items:center; gap:0.5rem;
+    background: rgba(232,80,10,0.15); border:1px solid rgba(232,80,10,0.3);
+    color: var(--orange-light); padding:0.4rem 1rem; border-radius:999px;
+    font-size:0.78rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase;
+    margin-bottom:1.5rem;
+    animation: fadeUp 0.7s ease both;
+  }
+  .hero-badge::before { content:'●'; font-size:0.5rem; }
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(4rem, 7vw, 7rem);
+    line-height:0.95;
+    letter-spacing:0.02em;
+    animation: fadeUp 0.7s 0.15s ease both;
+  }
+  .hero h1 .accent { color: var(--orange); display:block; }
+  .hero-sub {
+    margin-top:1.5rem; font-size:1.1rem; color: var(--gray);
+    max-width:460px; line-height:1.65;
+    animation: fadeUp 0.7s 0.3s ease both;
+  }
+  .hero-actions {
+    display:flex; gap:1rem; margin-top:2.5rem; flex-wrap:wrap;
+    animation: fadeUp 0.7s 0.45s ease both;
+  }
+  .btn-primary {
+    background: var(--orange); color:#fff;
+    padding:1rem 2rem; border-radius:6px;
+    font-weight:700; font-size:0.95rem; letter-spacing:0.05em;
+    text-decoration:none; text-transform:uppercase;
+    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    box-shadow: 0 4px 24px rgba(232,80,10,0.35);
+  }
+  .btn-primary:hover { background:var(--orange-light); transform:translateY(-2px); box-shadow:0 8px 32px rgba(232,80,10,0.45); }
+  .btn-secondary {
+    border: 1.5px solid var(--border); color:var(--white);
+    padding:1rem 2rem; border-radius:6px;
+    font-weight:600; font-size:0.95rem; letter-spacing:0.05em;
+    text-decoration:none; text-transform:uppercase;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .btn-secondary:hover { border-color: rgba(255,255,255,0.25); background:rgba(255,255,255,0.05); }
+
+  /* hero right side */
+  .hero-right {
+    display:flex; flex-direction:column; gap:1.5rem; align-items:flex-end;
+    animation: fadeUp 0.7s 0.3s ease both;
+  }
+  .stat-card {
+    background: var(--card-bg); border:1px solid var(--border);
+    border-radius:12px; padding:1.4rem 2rem; text-align:center;
+    min-width:180px;
+  }
+  .stat-card .num {
+    font-family:'Bebas Neue',sans-serif; font-size:3rem; color:var(--orange);
+    line-height:1;
+  }
+  .stat-card .lbl { font-size:0.8rem; color:var(--gray); margin-top:0.2rem; text-transform:uppercase; letter-spacing:0.08em; }
+  .hero-area-tag {
+    background: var(--card-bg); border:1px solid var(--border);
+    border-radius:10px; padding:1rem 1.5rem;
+    display:flex; align-items:center; gap:0.75rem;
+    font-size:0.9rem; color:var(--gray);
+  }
+  .hero-area-tag strong { color:var(--white); }
+  .pin-icon { color:var(--orange); font-size:1.2rem; }
+
+  /* ── TICKER ── */
+  .ticker-wrap {
+    overflow:hidden; border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+    background:var(--card-bg); padding:0.85rem 0;
+  }
+  .ticker {
+    display:flex; gap:3rem; white-space:nowrap;
+    animation: scroll 20s linear infinite;
+    font-family:'Bebas Neue',sans-serif; font-size:1.1rem; letter-spacing:0.08em; color:var(--gray);
+  }
+  .ticker span { color:var(--orange); }
+  @keyframes scroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+  /* ── SERVICES ── */
+  section { padding:6rem 4rem; }
+  .section-label {
+    font-size:0.75rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase;
+    color:var(--orange); margin-bottom:0.75rem;
+  }
+  .section-title {
+    font-family:'Bebas Neue',sans-serif; font-size:clamp(2.5rem,4vw,4rem);
+    line-height:1; margin-bottom:3rem;
+  }
+
+  .services-grid {
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:1.5px;
+    background:var(--border); border:1px solid var(--border); border-radius:14px; overflow:hidden;
+  }
+  .service-card {
+    background:var(--card-bg); padding:2.5rem 2rem;
+    transition: background 0.25s;
+    cursor:default;
+  }
+  .service-card:hover { background:#1c1c1c; }
+  .service-icon {
+    font-size:2rem; margin-bottom:1.2rem; display:block;
+  }
+  .service-card h3 { font-size:1.15rem; font-weight:700; margin-bottom:0.6rem; }
+  .service-card p { font-size:0.88rem; color:var(--gray); line-height:1.6; }
+
+  /* ── REVIEWS ── */
+  .reviews-section { background:#0a0a0a; }
+  .reviews-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1.5rem; }
+  .review-card {
+    background:var(--card-bg); border:1px solid var(--border); border-radius:14px;
+    padding:2rem;
+    transition: border-color 0.25s, transform 0.2s;
+  }
+  .review-card:hover { border-color:rgba(232,80,10,0.35); transform:translateY(-3px); }
+  .stars { color:var(--orange); font-size:1rem; margin-bottom:1rem; letter-spacing:2px; }
+  .review-text { font-size:0.92rem; color:#ccc; line-height:1.65; margin-bottom:1.2rem; }
+  .reviewer { display:flex; align-items:center; gap:0.75rem; }
+  .avatar {
+    width:38px; height:38px; border-radius:50%;
+    background:linear-gradient(135deg,var(--orange),#c23d00);
+    display:flex; align-items:center; justify-content:center;
+    font-weight:700; font-size:0.85rem;
+  }
+  .reviewer-info .name { font-weight:600; font-size:0.88rem; }
+  .reviewer-info .loc { color:var(--gray); font-size:0.78rem; }
+
+  /* ── CONTACT ── */
+  .contact-section { background:var(--black); }
+  .contact-grid { display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:start; }
+  .contact-info h2 { font-family:'Bebas Neue',sans-serif; font-size:clamp(2.5rem,4vw,4rem); line-height:1; margin-bottom:1.5rem; }
+  .contact-info p { color:var(--gray); line-height:1.7; margin-bottom:2rem; }
+  .contact-detail {
+    display:flex; align-items:center; gap:1rem; margin-bottom:1.2rem;
+    padding:1.1rem 1.5rem; background:var(--card-bg);
+    border:1px solid var(--border); border-radius:10px;
+  }
+  .detail-icon { font-size:1.3rem; }
+  .detail-text .label { font-size:0.72rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--gray); }
+  .detail-text .value { font-weight:600; font-size:0.95rem; margin-top:0.1rem; }
+
+  /* form */
+  .contact-form { display:flex; flex-direction:column; gap:1.2rem; }
+  .form-group { display:flex; flex-direction:column; gap:0.5rem; }
+  .form-group label { font-size:0.8rem; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:var(--gray); }
+  .form-group input, .form-group textarea, .form-group select {
+    background:var(--card-bg); border:1px solid var(--border);
+    color:var(--white); padding:0.9rem 1.1rem; border-radius:8px;
+    font-family:'DM Sans',sans-serif; font-size:0.95rem;
+    transition: border-color 0.2s;
+    outline:none;
+  }
+  .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+    border-color: var(--orange);
+  }
+  .form-group textarea { resize:vertical; min-height:110px; }
+  .form-group select option { background:var(--card-bg); }
+  .form-row { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+  .submit-btn {
+    background:var(--orange); color:#fff; border:none; cursor:pointer;
+    padding:1rem 2rem; border-radius:8px; font-family:'DM Sans',sans-serif;
+    font-weight:700; font-size:1rem; letter-spacing:0.05em; text-transform:uppercase;
+    transition: background 0.2s, transform 0.15s;
+    box-shadow:0 4px 20px rgba(232,80,10,0.3);
+  }
+  .submit-btn:hover { background:var(--orange-light); transform:translateY(-1px); }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top:1px solid var(--border); padding:2.5rem 4rem;
+    display:flex; align-items:center; justify-content:space-between;
+    font-size:0.83rem; color:var(--gray);
+  }
+  .footer-logo { font-family:'Bebas Neue',sans-serif; font-size:1.3rem; color:var(--white); }
+  .footer-logo span { color:var(--orange); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity:0; transform:translateY(22px); }
+    to   { opacity:1; transform:translateY(0); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media(max-width:900px){
+    nav { padding:1rem 1.5rem; }
+    .nav-links { display:none; }
+    .hero { grid-template-columns:1fr; padding:7rem 1.5rem 3rem; }
+    .hero-right { align-items:flex-start; flex-direction:row; flex-wrap:wrap; }
+    section { padding:4rem 1.5rem; }
+    .contact-grid { grid-template-columns:1fr; gap:3rem; }
+    footer { flex-direction:column; gap:0.75rem; text-align:center; }
+    .form-row { grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">AY<span>.</span></div>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Get a Quote</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-badge">Available Now · Fast Response</div>
+    <h1>
+      Your Local
+      <span class="accent">Handyman</span>
+      Expert
+    </h1>
+    <p class="hero-sub">
+      Akram Yacoub brings reliable, skilled craftsmanship to every job — from leaky faucets to full room makeovers. No job too big or small.
+    </p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">Book a Visit</a>
+      <a href="#services" class="btn-secondary">Our Services</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="stat-card">
+      <div class="num">500+</div>
+      <div class="lbl">Jobs Completed</div>
+    </div>
+    <div class="stat-card">
+      <div class="num">8+</div>
+      <div class="lbl">Years Experience</div>
+    </div>
+    <div class="hero-area-tag">
+      <span class="pin-icon">📍</span>
+      <span>Serving <strong>Greater Metro Area</strong> & surrounds</span>
+    </div>
+    <div class="stat-card">
+      <div class="num">5★</div>
+      <div class="lbl">Average Rating</div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker">
+    <span>🔧</span> Plumbing &nbsp;·&nbsp;
+    <span>⚡</span> Electrical &nbsp;·&nbsp;
+    <span>🎨</span> Painting &nbsp;·&nbsp;
+    <span>🪵</span> Carpentry &nbsp;·&nbsp;
+    <span>🔩</span> General Repairs &nbsp;·&nbsp;
+    <span>🧹</span> Cleaning &nbsp;·&nbsp;
+    <span>🔧</span> Plumbing &nbsp;·&nbsp;
+    <span>⚡</span> Electrical &nbsp;·&nbsp;
+    <span>🎨</span> Painting &nbsp;·&nbsp;
+    <span>🪵</span> Carpentry &nbsp;·&nbsp;
+    <span>🔩</span> General Repairs &nbsp;·&nbsp;
+    <span>🧹</span> Cleaning &nbsp;·&nbsp;
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-label">What We Do</div>
+  <div class="section-title">Our Services</div>
+  <div class="services-grid">
+    <div class="service-card">
+      <span class="service-icon">🔧</span>
+      <h3>Plumbing</h3>
+      <p>Leak detection, pipe repair, fixture installation, drain clearing, and more. Fast and clean every time.</p>
+    </div>
+    <div class="service-card">
+      <span class="service-icon">⚡</span>
+      <h3>Electrical</h3>
+      <p>Outlet replacements, light fixture installation, switch repairs, and minor wiring — all done safely.</p>
+    </div>
+    <div class="service-card">
+      <span class="service-icon">🎨</span>
+      <h3>Painting</h3>
+      <p>Interior & exterior painting, wall prep, patching, and priming for a smooth, lasting finish.</p>
+    </div>
+    <div class="service-card">
+      <span class="service-icon">🪵</span>
+      <h3>Carpentry</h3>
+      <p>Custom shelving, door fitting, trim work, deck repairs, and furniture assembly done right.</p>
+    </div>
+    <div class="service-card">
+      <span class="service-icon">🔩</span>
+      <h3>General Repairs</h3>
+      <p>Anything that's broken, squeaky, or worn — Akram can fix it. We handle the odds and ends too.</p>
+    </div>
+    <div class="service-card">
+      <span class="service-icon">🧹</span>
+      <h3>Cleaning</h3>
+      <p>Post-renovation deep cleaning, gutter clearing, pressure washing, and general tidy-up services.</p>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews" class="reviews-section">
+  <div class="section-label">Customer Reviews</div>
+  <div class="section-title">What People Say</div>
+  <div class="reviews-grid">
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p class="review-text">"Akram fixed our leaking pipes and repainted the whole kitchen. Showed up on time, was super professional, and the results were flawless. Highly recommend!"</p>
+      <div class="reviewer">
+        <div class="avatar">SM</div>
+        <div class="reviewer-info">
+          <div class="name">Sarah M.</div>
+          <div class="loc">Homeowner</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p class="review-text">"Had a bunch of small jobs piling up for months. Akram knocked them all out in one afternoon. Great value, friendly, and genuinely cares about the quality of his work."</p>
+      <div class="reviewer">
+        <div class="avatar">JR</div>
+        <div class="reviewer-info">
+          <div class="name">James R.</div>
+          <div class="loc">Property Owner</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p class="review-text">"Called on a Saturday for an urgent repair and Akram was there within 2 hours. Fixed the issue quickly and didn't overcharge. He's our go-to guy from now on."</p>
+      <div class="reviewer">
+        <div class="avatar">LT</div>
+        <div class="reviewer-info">
+          <div class="name">Linda T.</div>
+          <div class="loc">Tenant</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact-section">
+  <div class="contact-grid">
+    <div class="contact-info">
+      <div class="section-label">Get in Touch</div>
+      <h2>Let's Get The Job Done</h2>
+      <p>Fill out the form or reach out directly. Akram responds quickly — usually within the hour.</p>
+      <div class="contact-detail">
+        <span class="detail-icon">📞</span>
+        <div class="detail-text">
+          <div class="label">Phone</div>
+          <div class="value">(555) 012-3456</div>
+        </div>
+      </div>
+      <div class="contact-detail">
+        <span class="detail-icon">✉️</span>
+        <div class="detail-text">
+          <div class="label">Email</div>
+          <div class="value">akram@ayhandyman.com</div>
+        </div>
+      </div>
+      <div class="contact-detail">
+        <span class="detail-icon">📍</span>
+        <div class="detail-text">
+          <div class="label">Service Area</div>
+          <div class="value">Greater Metro Area & surrounds</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="contact-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label>First Name</label>
+            <input type="text" placeholder="John"/>
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" placeholder="Smith"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input type="tel" placeholder="(555) 000-0000"/>
+        </div>
+        <div class="form-group">
+          <label>Service Needed</label>
+          <select>
+            <option value="">Select a service...</option>
+            <option>Plumbing</option>
+            <option>Electrical</option>
+            <option>Painting</option>
+            <option>Carpentry</option>
+            <option>General Repairs</option>
+            <option>Cleaning</option>
+            <option>Multiple / Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Describe the Job</label>
+          <textarea placeholder="Tell Akram what you need done..."></textarea>
+        </div>
+        <button class="submit-btn">Send Request →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Akram Yacoub<span>.</span></div>
+  <div>© 2026 Akram Yacoub Handyman Services. All rights reserved.</div>
+  <div>Made with care.</div>
+</footer>
+
+</body>
+</html>
